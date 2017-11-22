@@ -2,7 +2,7 @@
 #define ALUMNOTEST_H_
 
 #include <CUnit/Basic.h>
-
+#include "commons/constructor.h"
 #include "alumno.h"
 
 int inicializar();

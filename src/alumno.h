@@ -19,6 +19,5 @@ bool hijoDelRigorConMasDe (int, Parcial *);
 bool cabulero (Parcial *);
 
 Alumno * Alumno_new(char * nombre,char * direccion,int edad,int legajo,bool (*criterioEstudio)(Parcial *));
-void Alumno_free(Alumno *this);
 
 #endif /* ALUMNO_H_ */

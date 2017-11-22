@@ -1,5 +1,6 @@
 #include "alumno.h"
 #include <stdlib.h>
+#include "commons/constructor.h"
 
 bool estudioso(Parcial * unParcial) {
 	return true;
@@ -20,15 +21,12 @@ bool cabulero(Parcial * unParcial) {
 }
 
 Alumno * Alumno_new(char * nombre,char * direccion,int edad,int legajo,bool (*criterioEstudio)(Parcial *)) {
-	Alumno * unAlumno = malloc(sizeof(Alumno));
+	//Alumno * unAlumno = malloc(sizeof(Alumno));
+	NEW(unAlumno, Alumno);
 	unAlumno->nombre=nombre;
 	unAlumno->direccion=direccion;
 	unAlumno->edad=edad;
 	unAlumno->legajo=legajo;
 	unAlumno->criterioEstudio = criterioEstudio;
 	return unAlumno;
-}
-
-void Alumno_free(Alumno * this) {
-	free(this);
 }

@@ -8,6 +8,5 @@ typedef struct ParcialType {
 } Parcial;
 
 Parcial * Parcial_new(char * materia,int cantidadDePreguntas);
-void Parcial_free(Parcial *this);
 
 #endif /* PARCIAL_H_ */

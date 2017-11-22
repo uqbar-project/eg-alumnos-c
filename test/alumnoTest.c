@@ -13,7 +13,9 @@ int inicializar() {
 }
 
 int limpiar() {
-	Alumno_free(nico);
+	FREE(nico);
+	FREE(materiaConLongitudPar);
+	FREE(materiaConLongitudImpar);
 	return 0;
 }
 
