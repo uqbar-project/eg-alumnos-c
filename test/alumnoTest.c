@@ -5,8 +5,7 @@ Parcial * materiaConLongitudPar;
 Parcial * materiaConLongitudImpar;
 
 int inicializar() {
-	nico = Alumno_new("Nico", "Av. siempre viva 742", 20, 111111, estudioso);
-
+	nico = Alumno_new("Nico","Gomez", "Av. siempre viva 742", 20, 111111, estudioso);
 	materiaConLongitudPar = Parcial_new("Paradigmas de programacion", 5);
 	materiaConLongitudImpar = Parcial_new("Sistemas Operativos", 8);
 	return 0;
@@ -19,6 +18,9 @@ int limpiar() {
 	return 0;
 }
 
+void test_un_campo_de_la_estructura_puede_ser_leido(){
+	CU_ASSERT_STRING_EQUAL(getNombreCompleto(nico),"Gomez, Nico");
+}
 void test_una_persona_estudiosa_siempre_estudia() {
 	nico->criterioEstudio = estudioso;
 	CU_ASSERT_TRUE(nico->criterioEstudio(materiaConLongitudPar));
@@ -47,6 +49,8 @@ void test_una_persona_cabulera_no_estudia_si_el_parcial_tiene_cantidad_de_letras
 
 void agregar_tests_persona() {
 	CU_pSuite nicoConPdep = CU_add_suite("Nico Con Pdep", inicializar, limpiar);
+	CU_add_test(nicoConPdep, "Acceso correcto a un parámetro de la estructura",
+			test_un_campo_de_la_estructura_puede_ser_leido);
 	CU_add_test(nicoConPdep, "test_una_persona_estudiosa_siempre_estudia",
 			test_una_persona_estudiosa_siempre_estudia);
 	CU_add_test(nicoConPdep,

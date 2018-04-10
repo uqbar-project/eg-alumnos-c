@@ -4,20 +4,25 @@
 #include <stdbool.h>
 #include <string.h>
 #include "parcial.h"
+#include "tipoAlumno.h"
 
 typedef struct AlumnoType {
     char * nombre;
+    char * apellido;
     char * direccion;
     int edad;
     int legajo;
     bool (*criterioEstudio)(Parcial* );
 } Alumno;
 
-bool estudioso (Parcial *);
-bool hijoDelRigor (Parcial *);
-bool hijoDelRigorConMasDe (int, Parcial *);
-bool cabulero (Parcial *);
 
-Alumno * Alumno_new(char * nombre,char * direccion,int edad,int legajo,bool (*criterioEstudio)(Parcial *));
+char * getNombre(Alumno * unAlumno);
+char * getApellido(Alumno * unAlumno);
+char * getNombreCompleto(Alumno * unAlumno);
+char * getDireccion(Alumno * unAlumno);
+int getEdad(Alumno * unAlumno);
+int getLegajo(Alumno * unAlumno);
+
+Alumno * Alumno_new(char * nombre, char * apellido, char * direccion,int edad,int legajo,bool (*criterioEstudio)(Parcial *));
 
 #endif /* ALUMNO_H_ */

@@ -2,31 +2,43 @@
 #include <stdlib.h>
 #include "commons/constructor.h"
 
-bool estudioso(Parcial * unParcial) {
-	return true;
+char * getNombre(Alumno * unAlumno) {
+	return unAlumno->nombre;
 }
 
-bool hijoDelRigor(Parcial * unParcial) {
-	static int cantidadMinimaDePreguntas = 5;
-	return hijoDelRigorConMasDe(cantidadMinimaDePreguntas, unParcial);
+char * getApellido(Alumno * unAlumno) {
+	return unAlumno->nombre;
 }
 
-bool hijoDelRigorConMasDe(int cantidadMinimaDePreguntas,
-		Parcial* unParcial) {
-	return unParcial->cantidadDePreguntas > cantidadMinimaDePreguntas;
+char * getNombreCompleto(Alumno * unAlumno) {
+	char * fullName = malloc(strlen(unAlumno->nombre) + 1 + strlen(unAlumno->apellido));
+	strcpy(fullName, unAlumno->apellido);
+	strcat(fullName, ", ");
+	strcat(fullName, unAlumno->nombre);
+	return fullName;
 }
 
-bool cabulero(Parcial * unParcial) {
-	return strlen(unParcial->materia) % 2 == 0;
+char * getDireccion(Alumno * unAlumno) {
+	return unAlumno->direccion;
 }
 
-Alumno * Alumno_new(char * nombre,char * direccion,int edad,int legajo,bool (*criterioEstudio)(Parcial *)) {
+int getEdad(Alumno * unAlumno){
+	return unAlumno->edad;
+}
+
+int getLegajo(Alumno * unAlumno){
+	return unAlumno->legajo;
+}
+
+Alumno * Alumno_new(char * nombre, char * apellido, char * direccion, int edad,
+		int legajo, bool (*criterioEstudio)(Parcial *)) {
 	//Alumno * unAlumno = malloc(sizeof(Alumno));
 	NEW(unAlumno, Alumno);
-	unAlumno->nombre=nombre;
-	unAlumno->direccion=direccion;
-	unAlumno->edad=edad;
-	unAlumno->legajo=legajo;
+	unAlumno->nombre = nombre;
+	unAlumno->apellido = apellido;
+	unAlumno->direccion = direccion;
+	unAlumno->edad = edad;
+	unAlumno->legajo = legajo;
 	unAlumno->criterioEstudio = criterioEstudio;
 	return unAlumno;
 }
