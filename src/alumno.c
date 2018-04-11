@@ -29,6 +29,12 @@ int getEdad(Alumno * unAlumno){
 int getLegajo(Alumno * unAlumno){
 	return unAlumno->legajo;
 }
+void setNombre(Alumno * unAlumno, char * unNombre){
+	unAlumno->nombre = unNombre;
+}
+bool esMayorDeEdad(Alumno * unAlumno){
+	return unAlumno->edad > 18;
+}
 
 Alumno * Alumno_new(char * nombre, char * apellido, char * direccion, int edad,
 		int legajo, bool (*criterioEstudio)(Parcial *)) {

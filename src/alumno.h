@@ -22,6 +22,8 @@ char * getNombreCompleto(Alumno * unAlumno);
 char * getDireccion(Alumno * unAlumno);
 int getEdad(Alumno * unAlumno);
 int getLegajo(Alumno * unAlumno);
+void setNombre(Alumno * unAlumno, char * unNombre);
+bool esMayorDeEdad(Alumno * unAlumno);
 
 Alumno * Alumno_new(char * nombre, char * apellido, char * direccion,int edad,int legajo,bool (*criterioEstudio)(Parcial *));
 
