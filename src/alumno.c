@@ -2,37 +2,19 @@
 #include <stdlib.h>
 #include "commons/constructor.h"
 
-char * getNombre(Alumno * unAlumno) {
-	return unAlumno->nombre;
-}
-
-char * getApellido(Alumno * unAlumno) {
-	return unAlumno->nombre;
-}
-
-char * getNombreCompleto(Alumno * unAlumno) {
-	char * fullName = malloc(strlen(unAlumno->nombre) + 1 + strlen(unAlumno->apellido));
+char * nombreCompleto(Alumno * unAlumno) {
+	char * fullName = malloc(
+			strlen(unAlumno->nombre) + 1 + strlen(unAlumno->apellido));
 	strcpy(fullName, unAlumno->apellido);
 	strcat(fullName, ", ");
 	strcat(fullName, unAlumno->nombre);
 	return fullName;
 }
 
-char * getDireccion(Alumno * unAlumno) {
-	return unAlumno->direccion;
+void setCriterioDeEstudio(Alumno * unAlumno, bool (*unCriterio)(Parcial*)){
+	unAlumno->criterioEstudio = unCriterio;
 }
-
-int getEdad(Alumno * unAlumno){
-	return unAlumno->edad;
-}
-
-int getLegajo(Alumno * unAlumno){
-	return unAlumno->legajo;
-}
-void setNombre(Alumno * unAlumno, char * unNombre){
-	unAlumno->nombre = unNombre;
-}
-bool esMayorDeEdad(Alumno * unAlumno){
+bool esMayorDeEdad(Alumno * unAlumno) {
 	return unAlumno->edad > 18;
 }
 
