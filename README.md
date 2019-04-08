@@ -3,8 +3,13 @@ Resolución del ejercicio de alumno en ANSI C modelando con TADs y testeado con 
 
 ## requisitos
 1. Eclipse C/C++
-2. CUnit (para su instalación pueden seguir [esta guia](https://docs.google.com/document/d/17li9WRr3VLbuFI18EBmgYuTmLnj3wushlLf4vODwjzg/edit))
-
+2. CUnit 
+   
+     para su instalación correr 
+	 ```bash
+	 apt-get install libcunit1 libcunit1-doc libcunit1-dev
+	```
+	
 # Enunciado
 Modelar un alumno, que define 
 * un nombre, 
