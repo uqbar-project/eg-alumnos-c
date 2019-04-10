@@ -1,4 +1,7 @@
 # Ejercicio de modelado de Alumnos
+
+[![Build Status](https://travis-ci.org/uqbar-project/eg-alumnos-c.svg?branch=master)](https://travis-ci.org/uqbar-project/eg-alumnos-c)
+
 Resolución del ejercicio de alumno en ANSI C modelando con TADs y testeado con CUnit perteneciente [al apunte](https://docs.google.com/document/d/11C2UAbP70dP7sTID-ZxJm_a-5ypKxQUEuZr6GVk5yFI/edit?usp=sharing) de modelado del paradigma funcional.
 
 ## requisitos
