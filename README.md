@@ -6,7 +6,7 @@ Resolución del ejercicio de alumno en ANSI C modelando con TADs y testeado con 
 2. CUnit 
    
      para su instalación correr 
-	 ```bash
+	```bash
 	 apt-get install libcunit1 libcunit1-doc libcunit1-dev
 	```
 	
