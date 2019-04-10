@@ -46,7 +46,7 @@ Alumno * Alumno_new(char * nombre, char * apellido, char * direccion, int edad,
 		int legajo, bool (*criterioEstudio)(Parcial *));
 ```
 
-Mientras que el criterio de estudio lo concideramos como otra nueva abstracción la cual se modela en otro **TAD** que si bie no tiene un estado (que modelamos con la estructura), tenemos comportamiento diferencial bien definido. 
+El criterio de estudio lo consideramos como una nueva abstracción que se modela en otro **TAD**, ya que si bien no tiene un estado (que modelamos con la estructura), tenemos comportamiento diferencial bien definido. 
 
 ```c
 bool estudioso (Parcial *);
@@ -55,7 +55,8 @@ bool hijoDelRigorConMasDe (int, Parcial *);
 bool cabulero (Parcial *);
 ```
 
-Para verificar el funcionamiento correcto de nuestro modelo se realizaron una serie de test que se ejecutan corriendo el programa. 
+Para verificar el funcionamiento de nuestro modelo se realizaron una serie de tests que pueden ejecutar. 
 
 ### Otro tip
-En la implementación de *Alumno_new* se encuentra comentado el malloc que solicita el espacio de memoria, dado que est reemplazado por la línea siguiente que ejeuta un [macro de Ansi C](https://gcc.gnu.org/onlinedocs/cpp/Macros.html)
+
+En la implementación de *Alumno_new* se encuentra comentado el _malloc_ que solicita el espacio de memoria, dado que fue reemplazado por la línea siguiente que ejecuta un [macro de Ansi C](https://gcc.gnu.org/onlinedocs/cpp/Macros.html)
