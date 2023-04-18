@@ -9,6 +9,7 @@
 #define TIPOALUMNO_H_
 
 #include <stdbool.h>
+#include <string.h>
 #include "parcial.h"
 
 bool estudioso (Parcial *);
