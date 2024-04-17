@@ -14,7 +14,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: install dependencies
-      run: sudo apt install -y libcunit1 libcunit1-doc libcunit1-dev
+      run: |
+        git clone https://github.com/mumuki/cspec.git
+        cd cspec
+        make
+        make install
     - name: make
       run: make clean
     - name: make all

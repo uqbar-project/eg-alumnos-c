@@ -5,6 +5,9 @@
 -include makefile.init
 BASEDIR="$(CURDIR)"
 RM := rm -rf
+UNAME=$(shell uname)
+# clang no se banca nested functions. Hay que instalar gcc con brew.
+CCMAC=/opt/homebrew/Cellar/gcc/13.2.0/bin/gcc-13
 
 # All of the sources participating in the build are defined here
 -include make/sources.mk
@@ -30,7 +33,13 @@ all: eg-alumnos-c
 eg-alumnos-c: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross GCC Linker'
-	gcc -o "eg-alumnos-c" $(OBJS) $(USER_OBJS) $(LIBS)
+	
+ifeq ($(UNAME), Darwin)
+	$(CCMAC) -o eg-alumnos-c -I /usr/local/include -L /usr/local/lib/ $(OBJS) $(USER_OBJS) $(LIBS)
+else
+	gcc -o "eg-alumnos-c" $(OBJS) $(USER_OBJS) $(LIBS) 
+endif
+
 	@echo 'Finished building target: $@'
 	@echo ' '
 

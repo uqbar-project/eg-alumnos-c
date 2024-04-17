@@ -2,15 +2,18 @@
 
 [![C/C++ CI](https://github.com/uqbar-project/eg-alumnos-c/actions/workflows/build.yml/badge.svg)](https://github.com/uqbar-project/eg-alumnos-c/actions/workflows/build.yml)
 
-Resolución del ejercicio de alumno en ANSI C modelando con TADs y testeado con CUnit perteneciente [al apunte](https://docs.google.com/document/d/11C2UAbP70dP7sTID-ZxJm_a-5ypKxQUEuZr6GVk5yFI/edit?usp=sharing) de modelado del paradigma funcional.
+Resolución del ejercicio de alumno en ANSI C modelando con TADs y testeado con cSpec perteneciente [al apunte](https://docs.google.com/document/d/11C2UAbP70dP7sTID-ZxJm_a-5ypKxQUEuZr6GVk5yFI/edit?usp=sharing) de modelado del paradigma funcional.
 
 ## requisitos
-1. Eclipse C/C++
-2. CUnit 
+1. Eclipse C/C++ / VsCode
+2. [cSpec](https://docs.utnso.com.ar/guias/herramientas/cspec)
    
      para su instalación correr 
 	```bash
-	 apt-get install libcunit1 libcunit1-doc libcunit1-dev
+    git clone https://github.com/mumuki/cspec.git
+    cd cspec
+    make
+    sudo make install
 	```
 	
 # Enunciado
