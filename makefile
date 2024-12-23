@@ -7,7 +7,7 @@ BASEDIR="$(CURDIR)"
 RM := rm -rf
 UNAME=$(shell uname)
 # clang no se banca nested functions. Hay que instalar gcc con brew.
-CCMAC=/opt/homebrew/Cellar/gcc/13.2.0/bin/gcc-13
+CCMAC=/opt/homebrew/Cellar/gcc/14.2.0_1/bin/gcc-14
 
 # All of the sources participating in the build are defined here
 -include make/sources.mk
