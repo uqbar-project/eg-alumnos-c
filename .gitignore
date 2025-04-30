@@ -36,3 +36,6 @@
 *.dSYM/
 *.su
 /Debug/
+
+# ejecutable
+eg-alumnos-c

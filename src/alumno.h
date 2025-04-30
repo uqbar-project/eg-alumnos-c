@@ -7,7 +7,7 @@
 #include "tipoAlumno.h"
 
 // ***************************************************************************
-// TAD Alumno
+// TAD Alumno - Interfaz
 // ***************************************************************************
 
 
@@ -35,8 +35,6 @@ void setCriterioDeEstudio(Alumno * unAlumno, bool (*criterioEstudio)(Parcial*));
 // operaciones de alto nivel
 char * nombreCompleto(Alumno * unAlumno);
 bool esMayorDeEdad(Alumno * unAlumno);
-bool estudia(Alumno * unAlumno, Parcial * unParcial) {
-	return unAlumno->criterioEstudio(unParcial);
-}
+bool estudia(Alumno * unAlumno, Parcial * unParcial);
 
 #endif /* ALUMNO_H_ */
