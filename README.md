@@ -71,3 +71,12 @@ Para verificar el funcionamiento de nuestro modelo se realizaron una serie de te
 ### Otro tip
 
 En la implementación de *Alumno_new* se encuentra comentado el _malloc_ que solicita el espacio de memoria, dado que fue reemplazado por la línea siguiente que ejecuta un [macro de Ansi C](https://gcc.gnu.org/onlinedocs/cpp/Macros.html)
+
+## Cómo correr los tests
+
+En la carpeta raíz hacer
+
+```bash
+sudo make
+./eg-alumnos-c
+```

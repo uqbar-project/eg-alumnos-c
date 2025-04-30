@@ -6,6 +6,13 @@
 #include "parcial.h"
 #include "tipoAlumno.h"
 
+// ***************************************************************************
+// TAD Alumno
+// ***************************************************************************
+
+
+// ***************************************************************************
+// estructura del Alumno
 typedef struct AlumnoType {
 	char * nombre;
 	char * apellido;
@@ -15,11 +22,21 @@ typedef struct AlumnoType {
 	bool (*criterioEstudio)(Parcial*);
 } Alumno;
 
-char * nombreCompleto(Alumno * unAlumno);
-void setCriterioDeEstudio(Alumno * unAlumno, bool (*criterioEstudio)(Parcial*));
-bool esMayorDeEdad(Alumno * unAlumno);
-
+// ***************************************************************************
+// función constructora
 Alumno * Alumno_new(char * nombre, char * apellido, char * direccion, int edad,
 		int legajo, bool (*criterioEstudio)(Parcial *));
+
+// ***************************************************************************
+// primitivas
+void setCriterioDeEstudio(Alumno * unAlumno, bool (*criterioEstudio)(Parcial*));
+
+// ***************************************************************************
+// operaciones de alto nivel
+char * nombreCompleto(Alumno * unAlumno);
+bool esMayorDeEdad(Alumno * unAlumno);
+bool estudia(Alumno * unAlumno, Parcial * unParcial) {
+	return unAlumno->criterioEstudio(unParcial);
+}
 
 #endif /* ALUMNO_H_ */

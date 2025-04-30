@@ -44,23 +44,23 @@ context (test_de_alumnos) {
     it("una persona hija del rigor no estudia si el parcial tiene pocas preguntas"){
       nico->criterioEstudio = hijoDelRigor;
       materiaConLongitudPar->cantidadDePreguntas = 5;
-      should_bool(nico->criterioEstudio(materiaConLongitudPar)) be falsey;
+      should_bool(estudia(nico, materiaConLongitudPar)) be falsey;
     } end
     
     it("una persona hija del rigor estudia si el parcial tiene muchas preguntas"){
       nico->criterioEstudio = hijoDelRigor;
       materiaConLongitudPar->cantidadDePreguntas = 6;
-      should_bool(nico->criterioEstudio(materiaConLongitudPar)) be truthy;
+      should_bool(estudia(nico, materiaConLongitudPar)) be truthy;
     } end
 
     it("una persona cabulera estudia si el parcial tiene una cantidad par de preguntas"){
       setCriterioDeEstudio(nico,cabulero);
-      should_bool(nico->criterioEstudio(materiaConLongitudPar)) be truthy;
+      should_bool(estudia(nico, materiaConLongitudPar)) be truthy;
     } end
 
     it("una persona cabulera NO estudia si el parcial tiene una cantidad impar de preguntas"){
       setCriterioDeEstudio(nico,cabulero);
-      should_bool(nico->criterioEstudio(materiaConLongitudImpar)) be falsey;
+      should_bool(estudia(nico, materiaConLongitudImpar)) be falsey;
     } end
 
   } end
