@@ -1,53 +1,63 @@
-################################################################################
-# Automatically-generated file. Do not edit!
-################################################################################
+# ───── Directorios ─────
+SRCDIR  := src
+TESTDIR := test
+OBJDIR  := build
 
--include makefile.init
-BASEDIR="$(CURDIR)"
-RM := rm -rf
-UNAME=$(shell uname)
-# clang no se banca nested functions. Hay que instalar gcc con brew.
-CCMAC=/opt/homebrew/Cellar/gcc/14.2.0_1/bin/gcc-14
-
-# All of the sources participating in the build are defined here
--include make/sources.mk
--include make/objects.mk
--include make/src/subdir.mk
--include make/test/subdir.mk
-
-
-ifneq ($(MAKECMDGOALS),clean)
-ifneq ($(strip $(C_DEPS)),)
--include $(C_DEPS)
-endif
-endif
-
--include makefile.defs
-
-# Add inputs and outputs from these tool invocations to the build variables 
-
-# All Target
-all: eg-alumnos-c
-
-# Tool invocations
-eg-alumnos-c: $(OBJS) $(USER_OBJS)
-	@echo 'Building target: $@'
-	@echo 'Invoking: Cross GCC Linker'
-	
+# ───── Herramientas ─────
+UNAME    := $(shell uname)
 ifeq ($(UNAME), Darwin)
-	$(CCMAC) -o eg-alumnos-c -I /usr/local/include -L /usr/local/lib/ $(OBJS) $(USER_OBJS) $(LIBS)
+  BREW := $(shell brew --prefix)
+  CC   := $(BREW)/Cellar/gcc/14.2.0_1/bin/gcc-14
 else
-	gcc -o "eg-alumnos-c" $(OBJS) $(USER_OBJS) $(LIBS) 
+  CC   := gcc
 endif
 
-	@echo 'Finished building target: $@'
-	@echo ' '
+# ───── Paths de CSpecs ─────
+# Aquí defines explícitamente dónde está cspecs
+CSPEC_INC := /usr/local/include $(BREW)/include
+CSPEC_LIB := /usr/local/lib    $(BREW)/lib
 
-# Other Targets
+# ───── Flags de compilación ─────
+CFLAGS := \
+  -I$(SRCDIR) \
+  -I$(TESTDIR) \
+  $(foreach d,$(CSPEC_INC),-I$d) \
+  -O0 -g -Wall -fPIC -MMD -MP
+
+# ───── Flags de link ─────
+LDFLAGS := $(foreach d,$(CSPEC_LIB),-L$d)
+LIBS    := -lcspecs
+
+# ───── Fuentes, objetos y deps ─────
+SRCS   := $(wildcard $(SRCDIR)/*.c) $(wildcard $(TESTDIR)/*.c)
+OBJS   := $(SRCS:%.c=$(OBJDIR)/%.o)
+DEPS   := $(OBJS:.o=.d)
+
+TARGET := eg-alumnos-c
+
+.PHONY: all clean
+
+# ───── Regla por defecto ─────
+all: $(TARGET)
+
+# ───── Linkeo (no headers aquí) ─────
+$(TARGET): $(OBJS)
+	@echo "Linking $@"
+	$(CC) $(LDFLAGS) -o $@ $^ $(LIBS)
+	@echo "Done."
+
+# ───── Compilación (aquí van los includes) ─────
+$(OBJDIR)/%.o: %.c
+	@mkdir -p $(dir $@)
+	@echo "Compiling $< → $@"
+	$(CC) $(CFLAGS) -c $< -o $@
+	@echo "OK."
+
+# ───── Dependencias automáticas ─────
+-include $(DEPS)
+
+# ───── Limpieza ─────
 clean:
-	-$(RM) $(EXECUTABLES)$(OBJS)$(C_DEPS) eg-alumnos-c
-	-@echo ' '
-
-.PHONY: all clean dependents
-
--include makefile.targets
+	@echo "Cleaning…"
+	@rm -rf $(OBJDIR) $(TARGET)
+	@echo "Clean complete."

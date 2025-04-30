@@ -1,4 +1,5 @@
 /Debug/
+/build/
 /.vscode/
 # Object files
 *.o
