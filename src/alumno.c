@@ -1,26 +1,17 @@
 #include "alumno.h"
 #include <stdlib.h>
+#include "commons/string.h"
 #include "commons/constructor.h"
 
-char * nombreCompleto(Alumno * unAlumno) {
-	char * fullName = malloc(
-			strlen(unAlumno->nombre) + 1 + strlen(unAlumno->apellido));
-	strcpy(fullName, unAlumno->apellido);
-	strcat(fullName, ", ");
-	strcat(fullName, unAlumno->nombre);
-	return fullName;
-}
+// ***************************************************************************
+// TAD Alumno - Implementación
+// ***************************************************************************
 
-void setCriterioDeEstudio(Alumno * unAlumno, bool (*unCriterio)(Parcial*)){
-	unAlumno->criterioEstudio = unCriterio;
-}
-bool esMayorDeEdad(Alumno * unAlumno) {
-	return unAlumno->edad > 18;
-}
 
-Alumno * Alumno_new(char * nombre, char * apellido, char * direccion, int edad,
-		int legajo, bool (*criterioEstudio)(Parcial *)) {
-	//Alumno * unAlumno = malloc(sizeof(Alumno));
+// ***************************************************************************
+// estructura del Alumno
+Alumno * Alumno_new(string nombre, string apellido, string direccion, int edad,
+	int legajo, bool (*criterioEstudio)(Parcial *)) {
 	NEW(unAlumno, Alumno);
 	unAlumno->nombre = nombre;
 	unAlumno->apellido = apellido;
@@ -29,4 +20,29 @@ Alumno * Alumno_new(char * nombre, char * apellido, char * direccion, int edad,
 	unAlumno->legajo = legajo;
 	unAlumno->criterioEstudio = criterioEstudio;
 	return unAlumno;
+}
+
+// ***************************************************************************
+// primitivas
+void setCriterioDeEstudio(Alumno * unAlumno, bool (*unCriterio)(Parcial*)){
+	unAlumno->criterioEstudio = unCriterio;
+}
+
+// ***************************************************************************
+// operaciones de alto nivel
+string nombreCompleto(Alumno * unAlumno) {
+	string fullName = malloc(
+			strlen(unAlumno->nombre) + 1 + strlen(unAlumno->apellido));
+	strcpy(fullName, unAlumno->apellido);
+	strcat(fullName, ", ");
+	strcat(fullName, unAlumno->nombre);
+	return fullName;
+}
+
+bool esMayorDeEdad(Alumno * unAlumno) {
+	return unAlumno->edad > 18;
+}
+
+bool estudia(Alumno * unAlumno, Parcial * unParcial) {
+	return unAlumno->criterioEstudio(unParcial);
 }
