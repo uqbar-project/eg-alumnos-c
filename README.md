@@ -66,18 +66,18 @@ Veamos cómo el modelo en cuestión define la siguiente estructura de datos y fu
 // ***************************************************************************
 // estructura del Alumno
 typedef struct AlumnoType {
-	char * nombre;
-	char * apellido;
-	char * direccion;
-	int edad;
-	int legajo;
-	bool (*criterioEstudio)(Parcial*);
+  string nombre;
+  string apellido;
+  string direccion;
+  int edad;
+  int legajo;
+  bool (*criterioEstudio)(Parcial*);
 } Alumno;
 
 // ***************************************************************************
 // función constructora
-Alumno * Alumno_new(char * nombre, char * apellido, char * direccion, int edad,
-		int legajo, bool (*criterioEstudio)(Parcial *));
+Alumno * Alumno_new(string nombre, string apellido, string direccion, int edad,
+    int legajo, bool (*criterioEstudio)(Parcial *));
 
 // ***************************************************************************
 // primitivas
@@ -85,7 +85,7 @@ void setCriterioDeEstudio(Alumno * unAlumno, bool (*criterioEstudio)(Parcial*));
 
 // ***************************************************************************
 // operaciones de alto nivel
-char * nombreCompleto(Alumno * unAlumno);
+string nombreCompleto(Alumno * unAlumno);
 bool esMayorDeEdad(Alumno * unAlumno);
 bool estudia(Alumno * unAlumno, Parcial * unParcial);
 ```
