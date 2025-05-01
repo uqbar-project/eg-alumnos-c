@@ -114,7 +114,9 @@ En nuestro diseño podemos pensar
 
 ## Creación y destrucción de alumnos
 
-En la implementación de *Alumno_new* se encuentra comentado el _malloc_ que solicita el espacio de memoria, dado que fue reemplazado por la línea siguiente que ejecuta un [macro de Ansi C](https://gcc.gnu.org/onlinedocs/cpp/Macros.html)
+- en la implementación de *Alumno_new* se encuentra comentado el _malloc_ que solicita el espacio de memoria, dado que fue reemplazado por la línea siguiente que ejecuta un [macro de Ansi C](https://gcc.gnu.org/onlinedocs/cpp/Macros.html)
+- lo mismo para el free
+- y otro detalle es que definimos un alias de tipo para `char *` a `string`. Eso permite subir el nivel de nuestra definición, y podríamos hacer lo mismo para los punteros a TAD (lo dejamos para otra iteración)
 
 ## Cómo correr los tests
 

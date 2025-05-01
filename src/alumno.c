@@ -1,5 +1,6 @@
 #include "alumno.h"
 #include <stdlib.h>
+#include "commons/string.h"
 #include "commons/constructor.h"
 
 // ***************************************************************************
@@ -9,7 +10,7 @@
 
 // ***************************************************************************
 // estructura del Alumno
-Alumno * Alumno_new(char * nombre, char * apellido, char * direccion, int edad,
+Alumno * Alumno_new(string nombre, string apellido, string direccion, int edad,
 	int legajo, bool (*criterioEstudio)(Parcial *)) {
 	NEW(unAlumno, Alumno);
 	unAlumno->nombre = nombre;
@@ -29,8 +30,8 @@ void setCriterioDeEstudio(Alumno * unAlumno, bool (*unCriterio)(Parcial*)){
 
 // ***************************************************************************
 // operaciones de alto nivel
-char * nombreCompleto(Alumno * unAlumno) {
-	char * fullName = malloc(
+string nombreCompleto(Alumno * unAlumno) {
+	string fullName = malloc(
 			strlen(unAlumno->nombre) + 1 + strlen(unAlumno->apellido));
 	strcpy(fullName, unAlumno->apellido);
 	strcat(fullName, ", ");
