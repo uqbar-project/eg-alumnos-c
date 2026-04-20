@@ -11,7 +11,7 @@ bool estudioso(Parcial * unParcial) {
 }
 
 bool hijoDelRigor(Parcial * unParcial) {
-	static int cantidadMinimaDePreguntas = 5;
+	const int cantidadMinimaDePreguntas = 5;
 	return hijoDelRigorConMasDe(cantidadMinimaDePreguntas, unParcial);
 }
 
@@ -21,5 +21,5 @@ bool hijoDelRigorConMasDe(int cantidadMinimaDePreguntas,
 }
 
 bool cabulero(Parcial * unParcial) {
-	return strlen(unParcial->materia) % 2 == 0;
+	return strlen(unParcial->materia) % 2 != 0;
 }
