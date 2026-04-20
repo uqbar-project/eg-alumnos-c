@@ -1,6 +1,7 @@
 # Ejercicio de modelado de Alumnos
 
 [![C/C++ CI](https://github.com/uqbar-project/eg-alumnos-c/actions/workflows/build.yml/badge.svg)](https://github.com/uqbar-project/eg-alumnos-c/actions/workflows/build.yml)
+[![codecov](https://codecov.io/gh/uqbar-project/eg-alumnos-c/branch/main/graph/badge.svg)](https://codecov.io/gh/uqbar-project/eg-alumnos-c)
 
 Resolución del ejercicio de alumno en ANSI C modelando con TADs y testeado con cSpec perteneciente [al apunte](https://docs.google.com/document/d/11C2UAbP70dP7sTID-ZxJm_a-5ypKxQUEuZr6GVk5yFI/edit?usp=sharing) de modelado del paradigma funcional.
 
@@ -180,8 +181,11 @@ Los tests no arrastran al `main.c`, y el demo no linkea cSpec. Cada binario hace
 make          # compila el demo
 make run      # compila y corre el demo
 make test     # compila y corre los tests
+make coverage # recompila con --coverage, corre tests, genera build/lcov.info
 make clean    # borra artefactos de build y binarios
 ```
+
+Para `make coverage` en local hace falta `lcov` instalado (`brew install lcov` en Mac, `apt install lcov` en Linux). El reporte que genera también se sube automáticamente a [Codecov](https://codecov.io/gh/uqbar-project/eg-alumnos-c) desde CI; el umbral mínimo del proyecto es 80%.
 
 ### Salida esperada del demo
 
