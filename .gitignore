@@ -43,3 +43,8 @@ eg-alumnos-c-tests
 
 # cspec
 cspec
+
+# Eclipse (proyecto migrado a VS Code)
+.cproject
+.project
+.settings/
