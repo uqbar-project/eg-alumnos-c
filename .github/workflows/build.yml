@@ -2,26 +2,40 @@ name: C/C++ CI
 
 on:
   push:
-    branches: [ master, cSpec ]
+    branches: [ main ]
   pull_request:
-    branches: [ master, cSpec ]
+    branches: [ main ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: install dependencies
+    - uses: actions/checkout@v4
+
+    - name: Install lcov
+      run: sudo apt-get update && sudo apt-get install -y lcov
+
+    - name: Install cSpec
       run: |
-        git clone https://github.com/mumuki/cspec.git
-        cd cspec
+        git clone https://github.com/mumuki/cspec.git /tmp/cspec
+        cd /tmp/cspec
         make
-        make install
-    - name: make
-      run: make clean
-    - name: make all
-      run: make all
-    - name: run tests
-      run: ./eg-alumnos-c
+        sudo make install
+        sudo ldconfig
+
+    - name: Compilar demo
+      run: make
+
+    - name: Correr tests
+      run: make test
+
+    - name: Generar reporte de cobertura
+      run: make coverage
+
+    - name: Subir cobertura a Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        files: build/lcov.info
+        fail_ci_if_error: true
+        token: ${{ secrets.CODECOV_TOKEN }}
