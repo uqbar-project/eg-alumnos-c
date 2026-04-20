@@ -4,12 +4,19 @@ TESTDIR := test
 OBJDIR  := build
 
 # ───── Herramientas ─────
-UNAME    := $(shell uname)
+UNAME := $(shell uname)
 ifeq ($(UNAME), Darwin)
   BREW := $(shell brew --prefix)
-  CC   := $(BREW)/Cellar/gcc/14.2.0_1/bin/gcc-14
+  # cspec usa nested functions + statement expressions (extensiones GCC).
+  # Apple clang no las banca, así que necesitamos un gcc real de Homebrew.
+  # Detectamos el mayor gcc-N instalado (ARM: /opt/homebrew, Intel: /usr/local)
+  # para no clavar la versión: sobrevive a `brew upgrade gcc`.
+  CC := $(shell ls /opt/homebrew/bin/gcc-[0-9]* /usr/local/bin/gcc-[0-9]* 2>/dev/null | sort -V | tail -1)
+  ifeq ($(strip $(CC)),)
+    $(error gcc de Homebrew no encontrado. Instalar con: brew install gcc)
+  endif
 else
-  CC   := gcc
+  CC := gcc
 endif
 
 # ───── Paths de CSpecs ─────
