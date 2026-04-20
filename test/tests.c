@@ -42,9 +42,12 @@ context (test_de_alumnos) {
       // Arrange
       Alumno * alumno = crearAlumno();
       // Assert
-      should_string(nombreCompleto(alumno)) be equal to("Gomez, Nico");
-      // Liberamos espacio. Otra opción es utilizar los hooks before y after, pero
-      // cuando crece mucho el archivo es difícil de controlar el juego de datos
+      string fullName = nombreCompleto(alumno);
+      should_string(fullName) be equal to("Gomez, Nico");
+      // Liberamos espacio. nombreCompleto hace malloc, así que quien lo llama
+      // se hace cargo del free. Alternativa: hooks before/after, pero cuando
+      // crece el archivo es difícil controlar el juego de datos.
+      free(fullName);
       FREE(alumno);
     } end
 
@@ -65,6 +68,7 @@ context (test_de_alumnos) {
       Alumno * alumnoEstudioso = crearAlumnoEstudioso();
       Parcial * parcial = crearParcialConLongitudPar();
       should_bool(estudia(alumnoEstudioso, parcial)) be truthy;
+      FREE(parcial);
       FREE(alumnoEstudioso);
     } end
 
@@ -84,19 +88,19 @@ context (test_de_alumnos) {
       FREE(alumnoHijoDelRigor);
     } end
 
-    it("una persona cabulera estudia si el parcial tiene una cantidad par de preguntas"){
+    it("una persona cabulera estudia si la materia tiene una cantidad impar de letras"){
       Alumno * alumnoCabulero = crearAlumnoCabulero();
-      Parcial * parcialConLongitudPar = crearParcialConLongitudPar();
-      should_bool(estudia(alumnoCabulero, parcialConLongitudPar)) be truthy;
-      FREE(parcialConLongitudPar);
+      Parcial * parcialConLongitudImpar = crearParcialConLongitudImpar();
+      should_bool(estudia(alumnoCabulero, parcialConLongitudImpar)) be truthy;
+      FREE(parcialConLongitudImpar);
       FREE(alumnoCabulero);
     } end
 
-    it("una persona cabulera NO estudia si el parcial tiene una cantidad impar de preguntas"){
+    it("una persona cabulera NO estudia si la materia tiene una cantidad par de letras"){
       Alumno * alumnoCabulero = crearAlumnoCabulero();
-      Parcial * parcialConLongitudImpar = crearParcialConLongitudImpar();
-      should_bool(estudia(alumnoCabulero, parcialConLongitudImpar)) be falsey;
-      FREE(parcialConLongitudImpar);
+      Parcial * parcialConLongitudPar = crearParcialConLongitudPar();
+      should_bool(estudia(alumnoCabulero, parcialConLongitudPar)) be falsey;
+      FREE(parcialConLongitudPar);
       FREE(alumnoCabulero);
     } end
 

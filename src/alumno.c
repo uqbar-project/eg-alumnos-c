@@ -32,7 +32,7 @@ void setCriterioDeEstudio(Alumno * unAlumno, bool (*unCriterio)(Parcial*)){
 // operaciones de alto nivel
 string nombreCompleto(Alumno * unAlumno) {
 	string fullName = malloc(
-			strlen(unAlumno->nombre) + 1 + strlen(unAlumno->apellido));
+			strlen(unAlumno->nombre) + strlen(unAlumno->apellido) + 3);
 	strcpy(fullName, unAlumno->apellido);
 	strcat(fullName, ", ");
 	strcat(fullName, unAlumno->nombre);
@@ -40,7 +40,7 @@ string nombreCompleto(Alumno * unAlumno) {
 }
 
 bool esMayorDeEdad(Alumno * unAlumno) {
-	return unAlumno->edad > 18;
+	return unAlumno->edad >= 18;
 }
 
 bool estudia(Alumno * unAlumno, Parcial * unParcial) {

@@ -5,7 +5,7 @@
 #include <string.h>
 #include "parcial.h"
 #include "commons/string.h"
-#include "tipoAlumno.h"
+#include "criterio.h"
 
 // ***************************************************************************
 // TAD Alumno - Interfaz

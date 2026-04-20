@@ -1,12 +1,5 @@
-/*
- * tipoAlumno.h
- *
- *  Created on: Apr 9, 2018
- *      Author: juan
- */
-
-#ifndef TIPOALUMNO_H_
-#define TIPOALUMNO_H_
+#ifndef CRITERIO_H_
+#define CRITERIO_H_
 
 #include <stdbool.h>
 #include <string.h>
@@ -17,4 +10,4 @@ bool hijoDelRigor (Parcial *);
 bool hijoDelRigorConMasDe (int, Parcial *);
 bool cabulero (Parcial *);
 
-#endif /* TIPOALUMNO_H_ */
+#endif /* CRITERIO_H_ */
