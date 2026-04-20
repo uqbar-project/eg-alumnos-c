@@ -15,8 +15,12 @@ ifeq ($(UNAME), Darwin)
   ifeq ($(strip $(CC)),)
     $(error gcc de Homebrew no encontrado. Instalar con: brew install gcc)
   endif
+  # gcov debe ser el que matchea con la versión de gcc que usamos (el de
+  # Apple no entiende los .gcda/.gcno de gcc de Homebrew).
+  GCOV := $(subst gcc-,gcov-,$(CC))
 else
-  CC := gcc
+  CC   := gcc
+  GCOV := gcov
 endif
 
 # ───── Paths de CSpecs ─────
@@ -50,7 +54,7 @@ DEPS      := $(LIB_OBJS:.o=.d) $(MAIN_OBJ:.o=.d) $(TEST_OBJS:.o=.d)
 DEMO_BIN := eg-alumnos-c
 TEST_BIN := eg-alumnos-c-tests
 
-.PHONY: all run test clean
+.PHONY: all run test coverage clean
 
 # ───── Regla por defecto ─────
 all: $(DEMO_BIN)
@@ -81,6 +85,21 @@ run: $(DEMO_BIN)
 
 test: $(TEST_BIN)
 	./$(TEST_BIN)
+
+# ───── Cobertura ─────
+# `make coverage` recompila instrumentado con --coverage, corre los tests,
+# agrega los resultados en build/lcov.info y filtra paths irrelevantes
+# (sistema, cspec, tests propios, main del demo).
+coverage:
+	@$(MAKE) clean
+	@$(MAKE) $(TEST_BIN) CFLAGS='$(CFLAGS) --coverage' LDFLAGS='$(LDFLAGS) --coverage'
+	./$(TEST_BIN)
+	lcov --capture --directory $(OBJDIR) --output-file $(OBJDIR)/lcov.info \
+	     --gcov-tool $(GCOV) --ignore-errors inconsistent --quiet
+	lcov --remove $(OBJDIR)/lcov.info '/usr/*' '/opt/*' '*/test/*' '*/src/main.c' \
+	     --output-file $(OBJDIR)/lcov.info --ignore-errors unused,inconsistent --quiet
+	@echo ""
+	@lcov --summary $(OBJDIR)/lcov.info --ignore-errors inconsistent
 
 # ───── Dependencias automáticas ─────
 -include $(DEPS)
