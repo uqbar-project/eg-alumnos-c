@@ -1,10 +1,4 @@
-/*
- * tipoAlumno.c
- *
- *  Created on: Apr 9, 2018
- *      Author: juan
- */
-#include "tipoAlumno.h"
+#include "criterio.h"
 
 bool estudioso(Parcial * unParcial) {
 	return true;
