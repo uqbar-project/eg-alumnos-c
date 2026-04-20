@@ -37,8 +37,9 @@
 *.su
 /Debug/
 
-# ejecutable
+# ejecutables
 eg-alumnos-c
+eg-alumnos-c-tests
 
 # cspec
 cspec

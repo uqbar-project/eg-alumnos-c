@@ -36,19 +36,34 @@ LDFLAGS := $(foreach d,$(CSPEC_LIB),-L$d)
 LIBS    := -lcspecs
 
 # ───── Fuentes, objetos y deps ─────
-SRCS   := $(wildcard $(SRCDIR)/*.c) $(wildcard $(TESTDIR)/*.c)
-OBJS   := $(SRCS:%.c=$(OBJDIR)/%.o)
-DEPS   := $(OBJS:.o=.d)
+# Separamos la "librería" (alumno/parcial/criterio) del main y de los tests.
+# Esto permite que el demo no linkee cspec y que los tests no arrastren el main.
+LIB_SRCS  := $(filter-out $(SRCDIR)/main.c,$(wildcard $(SRCDIR)/*.c))
+MAIN_SRC  := $(SRCDIR)/main.c
+TEST_SRCS := $(wildcard $(TESTDIR)/*.c)
 
-TARGET := eg-alumnos-c
+LIB_OBJS  := $(LIB_SRCS:%.c=$(OBJDIR)/%.o)
+MAIN_OBJ  := $(MAIN_SRC:%.c=$(OBJDIR)/%.o)
+TEST_OBJS := $(TEST_SRCS:%.c=$(OBJDIR)/%.o)
+DEPS      := $(LIB_OBJS:.o=.d) $(MAIN_OBJ:.o=.d) $(TEST_OBJS:.o=.d)
 
-.PHONY: all clean
+DEMO_BIN := eg-alumnos-c
+TEST_BIN := eg-alumnos-c-tests
+
+.PHONY: all run test clean
 
 # ───── Regla por defecto ─────
-all: $(TARGET)
+all: $(DEMO_BIN)
 
-# ───── Linkeo (no headers aquí) ─────
-$(TARGET): $(OBJS)
+# ───── Linkeo ─────
+# Demo: solo la librería + main, sin cspec.
+$(DEMO_BIN): $(LIB_OBJS) $(MAIN_OBJ)
+	@echo "Linking $@"
+	$(CC) $(LDFLAGS) -o $@ $^
+	@echo "Done."
+
+# Tests: librería + cspec + archivos de test.
+$(TEST_BIN): $(LIB_OBJS) $(TEST_OBJS)
 	@echo "Linking $@"
 	$(CC) $(LDFLAGS) -o $@ $^ $(LIBS)
 	@echo "Done."
@@ -60,11 +75,18 @@ $(OBJDIR)/%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 	@echo "OK."
 
+# ───── Targets de conveniencia ─────
+run: $(DEMO_BIN)
+	./$(DEMO_BIN)
+
+test: $(TEST_BIN)
+	./$(TEST_BIN)
+
 # ───── Dependencias automáticas ─────
 -include $(DEPS)
 
 # ───── Limpieza ─────
 clean:
 	@echo "Cleaning…"
-	@rm -rf $(OBJDIR) $(TARGET)
+	@rm -rf $(OBJDIR) $(DEMO_BIN) $(TEST_BIN)
 	@echo "Clean complete."
